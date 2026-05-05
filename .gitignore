@@ -1,0 +1,20 @@
+# ── 本機 push 工具產生的 log ──
+push_log.txt
+setup_log.txt
+
+# ── 系統檔 ──
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE / 編輯器 ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── 暫存 / 備份 ──
+*.bak
+*.tmp
+*.log

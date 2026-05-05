@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>確認信 HTML 預覽 — 覺知心智光譜 v1.04</title>
+<!--
+  ════════════════════════════════════════════════════════════
+  心智光譜報告 Email — 確認信 HTML 模板（v1.04）
+  ════════════════════════════════════════════════════════════
+  此檔為 Code.gs 中 buildEmailHtml() 產出的信件 HTML 預覽版本，
+  用瀏覽器直接開啟即可看到實際信件外觀（含家長眼裡的孩子 CTA）。
+
+  套版變數對應 Code.gs：
+    ${name}          → 收件者姓名         (此處示範：測試員)
+    ${ageLabel}      → 孩子年齡層         (此處示範：4–6 歲（情緒學習期）)
+    ${city}          → 就讀縣市           (此處示範：台北市)
+    ${schoolLabel}   → 就讀學校           (此處示範：測試國小)
+    ${referralLabel} → 了解管道           (此處示範：校園講座, FB/IG)
+    ${PARENT_SEES_CHILD_URL} → CTA 連結   (此處示範：https://lin.ee/nnDYAZE)
+
+  修改本檔不會影響真正寄出的信件 — 真實信件由 Code.gs 中 buildEmailHtml()
+  動態產生。本檔僅供視覺預覽 / 設計討論使用。
+  若要修改實際信件外觀，請改 Code.gs。
+  ════════════════════════════════════════════════════════════
+-->
+<style>
+  body { margin: 0; padding: 32px 16px; background: #E5E7EB; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .preview-label { max-width: 600px; margin: 0 auto 16px; padding: 10px 14px; background: #1E293B; color: #fff; border-radius: 8px; font-size: 12px; letter-spacing: 1px; }
+  .preview-label b { color: #FCD34D; }
+</style>
+</head>
+<body>
+
+<div class="preview-label">
+  📧 預覽：<b>確認信 HTML（v1.04 含 PDF 附件 + 家長眼裡的孩子 CTA）</b>　|　修改實際信件請改 Code.gs 的 buildEmailHtml()
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     以下 HTML 與 Code.gs buildEmailHtml() 產出完全一致
+     ════════════════════════════════════════════════════════ -->
+
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang TC','Noto Sans TC',sans-serif;
+            max-width:600px;margin:0 auto;padding:0;color:#1E293B;background:#F8FAFC;">
+
+  <!-- ── Hero Header（漸層+品牌條） ── -->
+  <div style="background:linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);padding:42px 32px 36px;border-radius:16px 16px 0 0;text-align:center;">
+    <div style="height:34px;margin-bottom:18px;text-align:center;">
+      <span style="display:inline-block;width:7px;height:18px;background:#EF4444;border-radius:3px;vertical-align:bottom;margin:0 2px;"></span>
+      <span style="display:inline-block;width:7px;height:23px;background:#F97316;border-radius:3px;vertical-align:bottom;margin:0 2px;"></span>
+      <span style="display:inline-block;width:7px;height:28px;background:#22C55E;border-radius:3px;vertical-align:bottom;margin:0 2px;"></span>
+      <span style="display:inline-block;width:7px;height:34px;background:#FFFFFF;border-radius:3px;vertical-align:bottom;margin:0 2px;"></span>
+    </div>
+    <h1 style="font-size:28px;font-weight:900;color:#fff;margin:0 0 6px;letter-spacing:2px;">覺知心智光譜</h1>
+    <p style="font-size:13px;color:rgba(255,255,255,0.85);margin:0;letter-spacing:3px;">MIND SPECTRUM · 家長端</p>
+  </div>
+
+  <!-- ── Body ── -->
+  <div style="background:#fff;padding:36px 32px 30px;border-left:1px solid #E2E8F0;border-right:1px solid #E2E8F0;">
+
+    <p style="font-size:18px;font-weight:700;margin:0 0 14px;color:#1E293B;">嗨，測試員 您好！</p>
+    <p style="font-size:14.5px;line-height:1.85;color:#475569;margin:0 0 26px;">
+      感謝您完成<strong style="color:#6366F1;">「覺知心智光譜」家長端測評</strong>，
+      您的專屬光譜分析說明已整理完畢，請見隨信附上的 <strong>PDF 檔</strong>。
+    </p>
+
+    <!-- 您的填寫資料 -->
+    <div style="background:linear-gradient(135deg,#EEF2FF 0%,#F0FDF4 100%);border-radius:12px;padding:20px 22px;margin-bottom:30px;">
+      <p style="font-size:11px;font-weight:700;color:#6366F1;letter-spacing:1.5px;margin:0 0 12px;text-transform:uppercase;">您的填寫資料</p>
+      <table style="font-size:13.5px;color:#334155;width:100%;border-collapse:collapse;">
+        <tr>
+          <td style="padding:5px 0;color:#64748B;width:90px;">孩子年齡層</td>
+          <td style="padding:5px 0;font-weight:600;">4–6 歲（情緒學習期）</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 0;color:#64748B;">就讀縣市</td>
+          <td style="padding:5px 0;font-weight:600;">台北市</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 0;color:#64748B;">就讀學校</td>
+          <td style="padding:5px 0;font-weight:600;">測試國小</td>
+        </tr>
+        <tr>
+          <td style="padding:5px 0;color:#64748B;">了解管道</td>
+          <td style="padding:5px 0;font-weight:600;">校園講座, FB/IG</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- 進階測評 CTA：家長眼裡的孩子 -->
+    <div style="border:2px solid #6366F1;border-radius:14px;padding:28px 26px;margin:0 0 26px;background:#fff;">
+      <div style="display:inline-block;background:#6366F1;color:#fff;font-size:11px;font-weight:700;padding:5px 11px;border-radius:6px;letter-spacing:1.5px;margin-bottom:14px;">下一步推薦</div>
+      <h2 style="font-size:20px;font-weight:900;color:#1E293B;margin:0 0 12px;line-height:1.35;">
+        進階測評：<span style="color:#6366F1;">「家長眼裡的孩子」</span>
+      </h2>
+      <p style="font-size:13.5px;line-height:1.85;color:#475569;margin:0 0 16px;">
+        您剛完成的是<strong>「家長端」</strong>光譜 — 看見的是您自己在壓力下的反應底色。<br><br>
+        我們邀請您再花 5 分鐘，從家長的視角描繪「您眼中的孩子」是哪一種底色。
+        對照兩份報告，您將看見：
+      </p>
+      <ul style="font-size:13px;color:#475569;line-height:1.95;margin:0 0 22px;padding-left:22px;">
+        <li>孩子真正的天賦與底色傾向</li>
+        <li>您與孩子互動的慣性與盲點</li>
+        <li>下一步教養可調整的具體方向</li>
+      </ul>
+      <a href="https://lin.ee/nnDYAZE" style="display:inline-block;background:#6366F1;color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 30px;border-radius:10px;letter-spacing:1.5px;">
+        立即了解更多 →
+      </a>
+      <p style="font-size:11.5px;color:#94A3B8;margin:14px 0 0;line-height:1.6;">
+        ★ 進階測評即將推出，點擊上方按鈕可加入 LINE，第一時間獲得上線通知。
+      </p>
+    </div>
+
+    <!-- 備註 -->
+    <p style="font-size:13px;line-height:1.85;color:#64748B;margin:0 0 6px;">
+      ＊ 若您有任何問題，歡迎直接回覆此信聯繫我們
+    </p>
+    <p style="font-size:13px;line-height:1.85;color:#64748B;margin:0;">
+      ＊ 若未收到，請確認是否在垃圾郵件資料夾
+    </p>
+
+  </div>
+
+  <!-- ── Footer ── -->
+  <div style="background:#F8FAFC;padding:22px 32px;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 16px 16px;text-align:center;font-size:12px;color:#94A3B8;line-height:1.7;">
+    此為系統自動發送，請勿直接回覆<br>
+    覺知心智光譜 &nbsp;|&nbsp; Mind Spectrum
+  </div>
+
+</div>
+
+</body>
+</html>

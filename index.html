@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>領取心智光譜分析說明</title>
+<style>
+  :root {
+    --accent:      #6366F1;
+    --accent-pale: #EEF2FF;
+    --accent-dark: #4338CA;
+    --border:      #E2E8F0;
+    --text-dark:   #1E293B;
+    --text-mid:    #475569;
+    --text-light:  #94A3B8;
+    --card:        #FFFFFF;
+    --bg:          #F8FAFC;
+    --red:         #EF4444;
+    --green:       #22C55E;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC',
+                 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--card);
+    border-bottom: 2px solid var(--border);
+    padding: 0 20px;
+  }
+  .header-inner {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 18px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-bars {
+    display: flex;
+    gap: 4px;
+    align-items: flex-end;
+    height: 26px;
+  }
+  .logo-bars span {
+    width: 6px;
+    border-radius: 3px;
+  }
+  .logo-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text-dark);
+    letter-spacing: 1px;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-left: auto;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Hero card ── */
+  .hero {
+    max-width: 480px;
+    margin: 28px auto 0;
+    padding: 0 16px;
+  }
+  .hero-card {
+    background: linear-gradient(135deg, #EEF2FF 0%, #F0FDF4 100%);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 22px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .hero-icon {
+    width: 52px;
+    height: 52px;
+    background: var(--accent);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .hero-icon svg { width: 28px; height: 28px; }
+  .hero-title {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .hero-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ── Form card ── */
+  .form-wrap {
+    max-width: 480px;
+    margin: 20px auto 40px;
+    padding: 0 16px;
+  }
+  .form-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 22px 24px;
+  }
+  .form-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+  .field:last-of-type { margin-bottom: 0; }
+
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-mid);
+    margin-bottom: 7px;
+  }
+  .field label .req {
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  .field input,
+  .field select {
+    width: 100%;
+    height: 48px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0 14px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text-dark);
+    background: #FAFBFF;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .field input:focus,
+  .field select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+    background: #FFFFFF;
+  }
+  .field input.error,
+  .field select.error {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.10);
+  }
+  .field .err-msg {
+    font-size: 12px;
+    color: var(--red);
+    margin-top: 5px;
+    display: none;
+  }
+  .field.has-error .err-msg { display: block; }
+
+  .field input::placeholder { color: var(--text-light); }
+
+  /* hint text */
+  .field-hint {
+    font-size: 11.5px;
+    color: var(--text-light);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  /* divider */
+  .form-divider {
+    border: none;
+    border-top: 1.5px solid var(--border);
+    margin: 22px 0;
+  }
+
+  /* ── Submit button ── */
+  .btn-submit {
+    width: 100%;
+    height: 54px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: inherit;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.15s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .btn-submit:hover { background: var(--accent-dark); }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled {
+    background: var(--text-light);
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-submit .spinner {
+    width: 20px; height: 20px;
+    border: 2.5px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  .btn-submit.loading .spinner { display: block; }
+  .btn-submit.loading .btn-text { opacity: 0.7; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* privacy note */
+  .privacy-note {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-light);
+    margin-top: 14px;
+    line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .privacy-note svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Success screen ── */
+  #success-screen {
+    display: none;
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 0 16px;
+    text-align: center;
+    animation: fadeUp 0.4s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .success-icon {
+    width: 80px; height: 80px;
+    background: #F0FDF4;
+    border: 2px solid #BBF7D0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 22px;
+  }
+  .success-icon svg { width: 40px; height: 40px; }
+  .success-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+  }
+  .success-desc {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+  .success-email-badge {
+    display: inline-block;
+    background: var(--accent-pale);
+    border: 1.5px solid #C7D2FE;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-dark);
+    margin-bottom: 28px;
+  }
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-mid);
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 22px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Error banner ── */
+  #error-banner {
+    display: none;
+    background: #FEF2F2;
+    border: 1.5px solid #FECACA;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #B91C1C;
+    line-height: 1.5;
+  }
+
+  /* footer */
+  .footer-ver {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-light);
+    padding: 20px 0 32px;
+    letter-spacing: 1px;
+  }
+
+  /* success 頁的測驗 CTA */
+  .success-quiz-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #fff !important;
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 15px;
+    margin-bottom: 14px;
+    transition: all 0.15s;
+    box-shadow: 0 4px 12px -2px rgba(99,102,241,0.35);
+  }
+  .success-quiz-cta:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+  }
+
+  /* honeypot：肉眼看不見、爬蟲會自動填 */
+  .honey-trap {
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* 來源管道 chips */
+  .referral-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 12px;
+    background: #FAFBFF;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    font-family: inherit;
+    text-align: left;
+  }
+  .chip:hover { border-color: var(--accent); }
+  .chip:active { transform: scale(0.97); }
+  .chip .chip-box {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+  }
+  .chip .chip-box svg { display: none; width: 11px; height: 11px; }
+  .chip.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 10px -3px rgba(99,102,241,0.3);
+  }
+  .chip.active .chip-box {
+    background: #fff;
+    border-color: #fff;
+  }
+  .chip.active .chip-box svg { display: block; }
+
+  /* referral field error state */
+  .field.has-error .referral-grid .chip {
+    border-color: var(--red);
+  }
+  .field.has-error .referral-grid .chip.active {
+    background: var(--red);
+    border-color: var(--red);
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-bars">
+      <span style="height:14px;background:#EF4444;"></span>
+      <span style="height:18px;background:#F97316;"></span>
+      <span style="height:22px;background:#22C55E;"></span>
+      <span style="height:26px;background:#6366F1;"></span>
+    </div>
+    <div class="logo-title">心智光譜</div>
+    <div class="logo-sub">MIND SPECTRUM</div>
+  </div>
+</div>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-card">
+    <div class="hero-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+    </div>
+    <div>
+      <div class="hero-title">領取心智光譜分析說明</div>
+      <div class="hero-desc">填寫完成後，我們將把您的專屬光譜說明<br>寄送至您的信箱，請確認 Email 正確無誤。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Form ── -->
+<div class="form-wrap" id="form-section">
+  <div class="form-card">
+    <div class="form-section-label">基本資料</div>
+
+    <form id="reg-form" novalidate>
+
+      <!-- bot honeypot：肉眼看不見、爬蟲會自動填，提交時若有值即視為機器人 -->
+      <div class="honey-trap" aria-hidden="true">
+        <label>Website</label>
+        <input type="text" id="inp-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <!-- 姓名 -->
+      <div class="field" id="field-name">
+        <label for="inp-name">姓名 <span class="req">*</span></label>
+        <input type="text" id="inp-name" placeholder="請輸入您的姓名" autocomplete="name" />
+        <div class="err-msg">請填寫姓名</div>
+      </div>
+
+      <!-- Email -->
+      <div class="field" id="field-email">
+        <label for="inp-email">Email <span class="req">*</span></label>
+        <input type="email" id="inp-email" placeholder="example@email.com" autocomplete="email" />
+        <div class="err-msg">請填寫有效的 Email 地址</div>
+      </div>
+
+      <!-- 手機 -->
+      <div class="field" id="field-phone">
+        <label for="inp-phone">手機號碼 <span class="req">*</span></label>
+        <input type="tel" id="inp-phone" placeholder="09XXXXXXXX" autocomplete="tel" maxlength="10" />
+        <div class="err-msg">請填寫有效的手機號碼（09 開頭，10 碼）</div>
+      </div>
+
+      <hr class="form-divider" />
+      <div class="form-section-label" style="margin-top:0;">孩子資訊</div>
+
+      <!-- 年齡層 -->
+      <div class="field" id="field-age">
+        <label for="inp-age">孩子年齡層 <span class="req">*</span></label>
+        <select id="inp-age">
+          <option value="">請選擇年齡層</option>
+          <option value="0-3">0–3 歲（感官連結期）</option>
+          <option value="4-6">4–6 歲（情緒學習期）</option>
+          <option value="7-12">7–12 歲（自我認同期）</option>
+          <option value="teen">青少年（自主拉鋸期）</option>
+        </select>
+        <div class="err-msg">請選擇孩子年齡層</div>
+      </div>
+
+      <!-- 縣市 -->
+      <div class="field" id="field-city">
+        <label for="inp-city">孩子就讀縣市 <span class="req">*</span></label>
+        <select id="inp-city">
+          <option value="">請選擇縣市</option>
+          <optgroup label="直轄市">
+            <option value="台北市">台北市</option>
+            <option value="新北市">新北市</option>
+            <option value="桃園市">桃園市</option>
+            <option value="台中市">台中市</option>
+            <option value="台南市">台南市</option>
+            <option value="高雄市">高雄市</option>
+          </optgroup>
+          <optgroup label="省轄市">
+            <option value="基隆市">基隆市</option>
+            <option value="新竹市">新竹市</option>
+            <option value="嘉義市">嘉義市</option>
+          </optgroup>
+          <optgroup label="縣">
+            <option value="新竹縣">新竹縣</option>
+            <option value="苗栗縣">苗栗縣</option>
+            <option value="彰化縣">彰化縣</option>
+            <option value="南投縣">南投縣</option>
+            <option value="雲林縣">雲林縣</option>
+            <option value="嘉義縣">嘉義縣</option>
+            <option value="屏東縣">屏東縣</option>
+            <option value="宜蘭縣">宜蘭縣</option>
+            <option value="花蓮縣">花蓮縣</option>
+            <option value="台東縣">台東縣</option>
+            <option value="澎湖縣">澎湖縣</option>
+            <option value="金門縣">金門縣</option>
+            <option value="連江縣">連江縣</option>
+          </optgroup>
+        </select>
+        <div class="err-msg">請選擇縣市</div>
+      </div>
+
+      <!-- 地區（選縣市後才顯示） -->
+      <div class="field" id="field-district" style="display:none;">
+        <label for="inp-district">孩子就讀地區 <span class="req">*</span></label>
+        <select id="inp-district">
+          <option value="">請選擇地區</option>
+        </select>
+        <div class="err-msg">請選擇地區</div>
+      </div>
+
+      <!-- 孩子就讀學校 -->
+      <div class="field" id="field-school">
+        <label for="inp-school">孩子就讀學校 <span class="req">*</span></label>
+        <input type="text" id="inp-school" placeholder="例如：仁愛國小" autocomplete="organization" maxlength="50" />
+        <div class="err-msg">請填寫孩子就讀學校</div>
+      </div>
+
+      <hr class="form-divider" />
+      <div class="form-section-label" style="margin-top:0;">了解管道</div>
+
+      <!-- 來源管道（必填、可複選） -->
+      <div class="field" id="field-referral">
+        <label>請問您是怎麼得知本測驗的？ <span class="req">*</span><span style="font-weight:500;color:var(--text-light);font-size:11px;margin-left:4px;">（可複選）</span></label>
+        <div class="referral-grid" id="referral-grid"><!-- 由 JS 動態建立 --></div>
+        <div class="err-msg">請至少選擇一個來源</div>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-submit" id="btn-submit">
+        <div class="spinner" id="spinner"></div>
+        <span class="btn-text">確認送出，領取分析說明</span>
+      </button>
+
+      <!-- Error banner -->
+      <div id="error-banner">
+        送出失敗，請稍後再試。若問題持續發生，請直接聯繫我們。
+      </div>
+
+      <!-- Privacy -->
+      <div class="privacy-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        您的個人資料僅供寄送分析說明使用，不會用於其他商業用途。
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── Success Screen ── -->
+<div id="success-screen">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  </div>
+  <div class="success-title">送出成功！</div>
+  <div class="success-desc">
+    感謝您完成心智光譜測驗。<br>
+    我們將盡快將分析說明寄送至：
+  </div>
+  <div class="success-email-badge" id="success-email"></div>
+  <div class="success-desc" style="margin-bottom:24px;font-size:13px;">
+    請記得檢查垃圾郵件資料夾，<br>若 24 小時內未收到，歡迎再次聯繫我們。
+  </div>
+
+  <!-- 下一步：心智光譜測驗 -->
+  <div style="border-top:1.5px solid var(--border);padding-top:22px;margin-top:8px;">
+    <div style="font-size:12px;font-weight:700;color:var(--accent);letter-spacing:1.5px;margin-bottom:12px;text-transform:uppercase;">下一步推薦</div>
+    <a class="success-quiz-cta"
+       href="https://sites.google.com/view/zwaymindspectrum2026/%E8%A6%BA%E7%9F%A5%E5%BF%83%E6%99%BA%E5%85%89%E8%AD%9C-%E4%BA%86%E8%A7%A3%E6%82%A8%E7%9A%84%E5%8E%9F%E7%94%9F%E5%BA%95%E8%89%B2"
+       target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      開始做心智光譜測驗 →
+    </a>
+    <div style="font-size:11.5px;color:var(--text-light);margin-top:4px;">3 分鐘了解您的家長底色</div>
+  </div>
+</div>
+
+<div class="footer-ver">心智光譜表單 v1.07</div>
+
+<script>
+// ────────────────────────────────────────────
+//  ⚙️  請將下方 URL 換成您部署好的 Apps Script Web App URL
+// ────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwOVVhS2n2kiyiHvC1Qol2QmQ4eQVaWJqdrFNUbFvWb5pzhF_DQjqDPiWJATeHHIXM/exec';
+// ────────────────────────────────────────────
+
+const form      = document.getElementById('reg-form');
+const btnSubmit = document.getElementById('btn-submit');
+const errBanner = document.getElementById('error-banner');
+
+// ── 風控與來源管道 ──
+const REFERRAL_OPTIONS = ["校園講座", "教師研習", "覺知SEL課程", "親友分享", "FB/IG", "其它"];
+const referralSelected = new Set();
+
+// 防止 XSS：把姓名等使用者輸入字串中可能造成 HTML 注入的字元跳脫
+function sanitizeHTML(str) {
+  if (typeof str !== 'string') return str;
+  return str.replace(/[&<>'"]/g, t => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[t]));
+}
+
+// ── Validation helpers ──
+function setError(fieldId, msg) {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  field.classList.add('has-error');
+  if (msg) {
+    const em = field.querySelector('.err-msg');
+    if (em) em.textContent = msg;
+  }
+  const inp = field.querySelector('input, select');
+  if (inp) inp.classList.add('error');
+}
+function clearError(fieldId) {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  field.classList.remove('has-error');
+  const inp = field.querySelector('input, select');
+  if (inp) inp.classList.remove('error');
+}
+
+function validateAll() {
+  let ok = true;
+
+  // 姓名
+  const name = document.getElementById('inp-name').value.trim();
+  if (!name) { setError('field-name'); ok = false; } else clearError('field-name');
+
+  // Email
+  const email = document.getElementById('inp-email').value.trim();
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email)) { setError('field-email'); ok = false; } else clearError('field-email');
+
+  // 手機
+  const phone = document.getElementById('inp-phone').value.trim();
+  const phoneRe = /^09\d{8}$/;
+  if (!phoneRe.test(phone)) { setError('field-phone'); ok = false; } else clearError('field-phone');
+
+  // 年齡層
+  const age = document.getElementById('inp-age').value;
+  if (!age) { setError('field-age'); ok = false; } else clearError('field-age');
+
+  // 縣市
+  const city = document.getElementById('inp-city').value;
+  if (!city) { setError('field-city'); ok = false; } else clearError('field-city');
+
+  // 就讀學校
+  const school = document.getElementById('inp-school').value.trim();
+  if (!school) { setError('field-school'); ok = false; } else clearError('field-school');
+
+  // 來源管道（至少選 1 個）
+  if (referralSelected.size === 0) { setError('field-referral'); ok = false; } else clearError('field-referral');
+
+  return ok;
+}
+
+// Clear error on input
+['inp-name','inp-email','inp-phone','inp-age','inp-city','inp-school'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => clearError('field-' + id.replace('inp-','')));
+  el.addEventListener('change', () => clearError('field-' + id.replace('inp-','')));
+});
+
+// 手機欄位：自動過濾非數字、限制 10 碼
+document.getElementById('inp-phone').addEventListener('input', (e) => {
+  e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10);
+});
+
+// 來源管道 chips：動態建立、可複選 toggle
+(function buildReferralChips() {
+  const grid = document.getElementById('referral-grid');
+  REFERRAL_OPTIONS.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip';
+    btn.dataset.value = opt;
+    btn.innerHTML =
+      '<span class="chip-box">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+      '</span>' +
+      '<span>' + opt + '</span>';
+    btn.addEventListener('click', () => {
+      if (referralSelected.has(opt)) {
+        referralSelected.delete(opt);
+        btn.classList.remove('active');
+      } else {
+        referralSelected.add(opt);
+        btn.classList.add('active');
+      }
+      clearError('field-referral');
+    });
+    grid.appendChild(btn);
+  });
+})();
+
+// ── Submit ──
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errBanner.style.display = 'none';
+
+  // bot 偵測：honeypot 欄位若有值 → 靜默假成功，不傳資料、不通知使用者
+  const honey = document.getElementById('inp-website').value;
+  if (honey) {
+    showSuccess(document.getElementById('inp-email').value.trim() || 'noreply@example.com');
+    return;
+  }
+
+  if (!validateAll()) return;
+
+  const payload = {
+    name:  sanitizeHTML(document.getElementById('inp-name').value.trim()),
+    email: document.getElementById('inp-email').value.trim(),
+    phone: document.getElementById('inp-phone').value.trim(),
+    age:   document.getElementById('inp-age').value,
+    city:  document.getElementById('inp-city').value,
+    school: sanitizeHTML(document.getElementById('inp-school').value.trim()),
+    referral: Array.from(referralSelected).join(','),
+    ts:    new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' })
+  };
+
+  btnSubmit.disabled = true;
+  btnSubmit.classList.add('loading');
+
+  try {
+    // Apps Script requires no-cors for simple GET; using URL params method
+    const params = new URLSearchParams(payload);
+    const res = await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+      method: 'GET',
+      mode: 'no-cors'   // Apps Script Web App limitation
+    });
+
+    // no-cors always resolves (can't read body); treat as success
+    showSuccess(payload.email);
+
+  } catch (err) {
+    btnSubmit.disabled = false;
+    btnSubmit.classList.remove('loading');
+    errBanner.style.display = 'block';
+    errBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+});
+
+function showSuccess(email) {
+  document.getElementById('form-section').style.display = 'none';
+  const sc = document.getElementById('success-screen');
+  sc.style.display = 'block';
+  document.getElementById('success-email').textContent = email;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
